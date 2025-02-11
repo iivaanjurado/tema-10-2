@@ -60,3 +60,21 @@ export const fetchGamesWithPagination = async (page = 1) => {
       return [];
     }
   };
+
+  export const fetchAllGames = async (page = 1) => {
+    try {
+      const url = new URL(`${BASE_URL}?key=${API_KEY}`);
+      url.searchParams.append("page", page);
+      url.searchParams.append("page_size", 20); // Número de juegos por página
+  
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Error al obtener los juegos");
+      }
+      const data = await response.json();
+      return data.results || [];
+    } catch (error) {
+      console.error("Error:", error);
+      return [];
+    }
+  };
