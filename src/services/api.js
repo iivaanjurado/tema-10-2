@@ -63,7 +63,7 @@ export const fetchGamesWithPagination = async (page = 1) => {
 
   export const fetchAllGames = async (page = 1) => {
     try {
-      const url = new URL(`${BASE_URL}?key=${API_KEY}`);
+      const url = new URL(`${BASE_URL}/games?ordering=-added&page_size=10&page=${page}&key=${API_KEY}`);
       url.searchParams.append("page", page);
       url.searchParams.append("page_size", 20); // Número de juegos por página
   
@@ -80,19 +80,21 @@ export const fetchGamesWithPagination = async (page = 1) => {
   };
 
   //funcion para realizar busquedas
-export const fetchSearchedGames = async (searchQuery) => {
-  try {
-    const url = new URL(`${BASE_URL}?key=${API_KEY}`);
-    url.searchParams.append("search", searchQuery);
-
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error("Error al obtener los juegos");
+  export const fetchSearchedGames = async (searchQuery) => {
+    try {
+      const url = new URL(`${BASE_URL}/games`);
+      url.searchParams.append("key", API_KEY);
+      url.searchParams.append("search", searchQuery);
+  
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Error al obtener los juegos");
+      }
+      const data = await response.json();
+      console.log("Resultados de la búsqueda:", data); // Para verificar la respuesta
+      return data.results || [];
+    } catch (error) {
+      console.error("Error:", error);
+      return [];
     }
-    const data = await response.json();
-    return data.results || [];
-  } catch (error) {
-    console.error("Error:", error);
-    return [];
-  }
-};
+  };
