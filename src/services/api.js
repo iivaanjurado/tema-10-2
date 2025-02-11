@@ -78,3 +78,21 @@ export const fetchGamesWithPagination = async (page = 1) => {
       return [];
     }
   };
+
+  //funcion para realizar busquedas
+export const fetchSearchedGames = async (searchQuery) => {
+  try {
+    const url = new URL(`${BASE_URL}?key=${API_KEY}`);
+    url.searchParams.append("search", searchQuery);
+
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Error al obtener los juegos");
+    }
+    const data = await response.json();
+    return data.results || [];
+  } catch (error) {
+    console.error("Error:", error);
+    return [];
+  }
+};
