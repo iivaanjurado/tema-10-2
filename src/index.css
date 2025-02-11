@@ -1,0 +1,19 @@
+
+@import "tailwindcss";
+
+*{
+  color: rgb(202, 200, 200);
+}
+
+body{
+  background-color: #121212;
+}
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    background-color: #282828;
+    border-radius: 0.8rem;
+  }
+  
