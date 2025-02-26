@@ -81,7 +81,7 @@ const SearchResults = () => {
               onClick={handlePreviousPage}
               disabled={currentPage === 1}
               className={`px-4 py-2 rounded ${
-                currentPage === 1 ? 'bg-gray-600 text-black' : 'bg-yellow-500 text-black hover:bg-yellow-600'
+                currentPage === 1 ? 'bg-gray-600 text-black' : 'bg-yellow-800 text-black hover:bg-yellow-900'
               }`}
             >
               Anterior
@@ -91,7 +91,7 @@ const SearchResults = () => {
               onClick={handleNextPage}
               disabled={currentPage === totalPages}
               className={`px-4 py-2 rounded ${
-                currentPage === totalPages ? 'bg-gray-600 text-black' : 'bg-yellow-500 text-black hover:bg-yellow-600'
+                currentPage === totalPages ? 'bg-gray-600 text-black' : 'bg-yellow-800 text-black hover:bg-yellow-900'
               }`}
             >
               Siguiente

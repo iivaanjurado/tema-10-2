@@ -65,7 +65,7 @@ const GameDetail = () => {
 
         <button
           onClick={toggleFavorite}
-          className={`mt-4 px-4 py-2 rounded-lg text-white ${isFavorite ? "bg-red-500" : "bg-green-500"} transition`}
+          className={`mt-4 px-4 py-2 rounded-lg text-white ${isFavorite ? "bg-red-900" : "bg-green-900"} transition`}
         >
           {isFavorite ? "❤️ Quitar de favoritos" : "💚 Agregar a favoritos"}
         </button>
