@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import SearchResults from "./components/pages/SearchResults";
 import HomePage from "./components/pages/Home";
 import Footer from "./components/Footer";
+import Publishers from "./components/Publishers";
 
 const AppContent = () => {
   return (
@@ -19,6 +20,8 @@ const AppContent = () => {
           <Route path="/videojuegos" element={<Videojuegos />} />
           <Route path="/game/:id" element={<GameDetail />} />
           <Route path="/buscar" element={<SearchResults />} />
+          <Route path="/publishers" element={<Publishers />} />
+          <Route path="/games/tag/:tagId" element={<SearchResults />} />
           
 
         </Routes>

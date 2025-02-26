@@ -16,6 +16,11 @@ const Navbar = () => {
             Videojuegos
           </Link>
         </div>
+        <div className="hidden md:flex space-x-8">
+          <Link to="/publishers" className="text-white hover:text-yellow-400 transition-all duration-300">
+            Publishers
+          </Link>
+        </div>
 
         {/* Barra de Búsqueda */}
         <div className="hidden md:block">

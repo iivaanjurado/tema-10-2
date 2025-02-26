@@ -79,22 +79,45 @@ export const fetchGamesWithPagination = async (page = 1) => {
     }
   };
 
-  //funcion para realizar busquedas
-  export const fetchSearchedGames = async (searchQuery) => {
+  export const fetchSearchedGames = async (query, page = 1) => {
     try {
-      const url = new URL(`${BASE_URL}/games`);
-      url.searchParams.append("key", API_KEY);
-      url.searchParams.append("search", searchQuery);
-  
-      const response = await fetch(url);
+      const response = await fetch(`${BASE_URL}/games?key=${API_KEY}&search=${query}&page=${page}&page_size=20`);
       if (!response.ok) {
-        throw new Error("Error al obtener los juegos");
+        throw new Error("Error fetching searched games");
       }
       const data = await response.json();
-      console.log("Resultados de la búsqueda:", data); // Para verificar la respuesta
-      return data.results || [];
+      return data;
     } catch (error) {
       console.error("Error:", error);
+      return { results: [], count: 0 };
+    }
+  };
+  
+  export const fetchGamesByTag = async (tagId, page = 1) => {
+    try {
+      const response = await fetch(`${BASE_URL}/games?key=${API_KEY}&tags=${tagId}&page=${page}&page_size=20`);
+      if (!response.ok) {
+        throw new Error("Error fetching games by tag");
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error:", error);
+      return { results: [], count: 0 };
+    }
+  };
+
+  //obtener los publishers
+  export const fetchPublishers = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/publishers?key=${API_KEY}`);
+      if (!response.ok) {
+        throw new Error("Error al obtener los publishers");
+      }
+      const data = await response.json();
+      return data.results;
+    } catch (error) {
+      console.error("Error al obtener los publishers:", error);
       return [];
     }
   };

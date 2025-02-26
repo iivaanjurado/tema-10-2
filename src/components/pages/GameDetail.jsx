@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { fetchGameDetails } from "../../services/api";
 
 const GameDetail = () => {
-  const { id } = useParams(); // Obtener ID del juego desde la URL
+  const { id } = useParams();
   const [game, setGame] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -14,7 +14,6 @@ const GameDetail = () => {
       setGame(gameData);
       setLoading(false);
 
-      // Verificar si el juego ya está en favoritos
       const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
       setIsFavorite(favorites.includes(id));
     };
@@ -39,11 +38,29 @@ const GameDetail = () => {
   return (
     <div className="container mx-auto px-6 py-8 text-white">
       <div className="max-w-4xl mx-auto bg-gray-800 p-6 rounded-lg shadow-lg">
-        <img src={game.background_image} alt={game.name} className="w-full object-cover rounded-lg" />
+        <img src={game.background_image || "/placeholder.svg"} alt={game.name} className="w-full object-cover rounded-lg" />
         <h2 className="text-3xl font-bold text-yellow-400 mt-4">{game.name}</h2>
         <p className="text-gray-400 mt-2">🗓️ Lanzamiento: {game.released}</p>
         <p className="text-gray-400">🎮 Plataformas: {game.platforms.map(p => p.platform.name).join(", ")}</p>
         <p className="text-gray-400">⭐ Puntuación: {game.rating} / 5</p>
+        
+        {/* Tags clickeables */}
+        <div className="text-gray-400 mt-2">
+          🏷️ Tags: 
+          {game.tags.map((tag) => (
+            <Link 
+              key={tag.id}
+              to={`/games/tag/${tag.id}`}
+              className="inline-block bg-gray-700 rounded-full px-3 py-1 text-sm font-semibold text-gray-200 mr-2 mb-2 hover:bg-gray-600 transition-colors"
+            >
+              {tag.name}
+            </Link>
+          ))}
+        </div>
+        
+        {/* Añadimos el publisher */}
+        <p className="text-gray-400">🏢 Publisher: {game.publishers.map(pub => pub.name).join(", ")}</p>
+        
         <p className="mt-4">{game.description_raw || "Descripción no disponible."}</p>
 
         <button
