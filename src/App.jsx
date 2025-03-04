@@ -1,42 +1,33 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Videojuegos from "./components/pages/Videojuegos";
-import GameDetail from "./components/pages/GameDetail";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import SearchResults from "./components/pages/SearchResults";
 import HomePage from "./components/pages/Home";
+import GameDetail from "./components/pages/GameDetail";
+import SearchResults from "./components/pages/SearchResults";
+import AllGamesGrid from "./components/AllGamesGrid";
+import Favorites from "./components/pages/Favorites";
+import Events from "./components/pages/Events";
+import MyEvents from "./components/pages/MyEvents";
+import JoinEvent from "./components/pages/JoinEvent";
 import Footer from "./components/Footer";
-import Publishers from "./components/Publishers";
 
-const AppContent = () => {
-  return (
-    <>
-      {/* Navbar */}
-      <Navbar />
-      
-      {/* Contenido Principal */}
-      <div className="min-h-screen bg-gray-900 text-white">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/videojuegos" element={<Videojuegos />} />
-          <Route path="/game/:id" element={<GameDetail />} />
-          <Route path="/buscar" element={<SearchResults />} />
-          <Route path="/publishers" element={<Publishers />} />
-          <Route path="/games/tag/:tagId" element={<SearchResults />} />
-          
-
-        </Routes>
-      </div>
-      <Footer/>
-    </>
-  );
-};
-
-const App = () => {
+function App() {
   return (
     <Router>
-      <AppContent />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/game/:id" element={<GameDetail />} />
+        <Route path="/search" element={<SearchResults />} />
+        <Route path="/games/tag/:tagId" element={<SearchResults />} />
+        <Route path="/games" element={<AllGamesGrid />} />
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/my-events" element={<MyEvents />} />
+        <Route path="/join-event/:eventId" element={<JoinEvent />} />
+      </Routes>
+      <Footer/>
     </Router>
   );
-};
+}
 
-export default App;
+export default App; 

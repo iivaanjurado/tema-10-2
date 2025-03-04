@@ -1,11 +1,9 @@
 // src/pages/Videojuegos.jsx
 import AllGamesGrid from "../AllGamesGrid";
 
-
 const Videojuegos = () => {
   return (
-    <div className="bg-gray-900 min-h-screen text-white">
-      
+    <div style={{ backgroundColor: '#1a202c', minHeight: '100vh', color: 'white' }}>
       <AllGamesGrid />
     </div>
   );

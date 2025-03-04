@@ -1,44 +1,38 @@
 import { useEffect, useState } from "react";
-import { fetchPopularGames } from "../services/api";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { fetchPopularGamesAsync } from "../features/games/gamesSlice";
 
 const PopularGamesSlider = () => {
-  const [games, setGames] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const { popularGames, status } = useSelector((state) => state.games);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const loadPopularGames = async () => {
-      try {
-        const popularGames = await fetchPopularGames();
-        setGames(popularGames);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching popular games:", error);
-        setLoading(false);
-      }
-    };
+    dispatch(fetchPopularGamesAsync());
+  }, [dispatch]);
 
-    loadPopularGames();
+  useEffect(() => {
+    if (popularGames.length === 0) return;
 
     const id = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % games.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % popularGames.length);
     }, 5000);
 
-    return () => {
-      clearInterval(id);
-    };
-  }, [games.length]);
+    return () => clearInterval(id); // Limpiar intervalo al desmontarse
+  }, [popularGames.length]);
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % games.length);
+    if (popularGames.length === 0) return;
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % popularGames.length);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + games.length) % games.length);
+    if (popularGames.length === 0) return;
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + popularGames.length) % popularGames.length);
   };
 
-  if (loading) {
+  if (status === 'loading' || popularGames.length === 0) {
     return <div className="text-center text-white">Cargando...</div>;
   }
 
@@ -51,13 +45,13 @@ const PopularGamesSlider = () => {
         {/* Imagen visible */}
         <div className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500">
           <img
-            src={games[currentIndex].background_image || "/placeholder.svg"}
-            alt={games[currentIndex].name}
+            src={popularGames[currentIndex].background_image || "/placeholder.svg"}
+            alt={popularGames[currentIndex].name}
             className="w-full h-full object-cover"
           />
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6">
-            <Link to="/" className="text-white text-3xl font-semibold hover:underline transition-all duration-300">
-              {games[currentIndex].name}
+            <Link to={`/game/${popularGames[currentIndex].id}`} className="text-white text-3xl font-semibold hover:underline transition-all duration-300">
+              {popularGames[currentIndex].name}
             </Link>
           </div>
         </div>
@@ -78,7 +72,7 @@ const PopularGamesSlider = () => {
 
         {/* Paginación */}
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3">
-          {games.map((_, index) => (
+          {popularGames.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}

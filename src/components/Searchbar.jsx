@@ -14,7 +14,15 @@ const SearchBar = () => {
 
   return (
     <form
-      className="flex items-center bg-gray-800 px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor: '#2d3748',
+        padding: '0.5rem 1rem',
+        borderRadius: '9999px',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        transition: 'all 0.3s',
+      }}
       onSubmit={handleSubmit}
     >
       <input
@@ -22,11 +30,29 @@ const SearchBar = () => {
         placeholder="Buscar juegos..."
         value={searchQuery}
         onChange={handleChange}
-        className="bg-transparent text-white placeholder-gray-400 outline-none w-48 sm:w-64 md:w-80 transition-all duration-300 focus:ring-2 focus:ring-yellow-400 rounded-full"
+        style={{
+          backgroundColor: 'transparent',
+          color: 'white',
+          placeholderColor: '#a0aec0',
+          outline: 'none',
+          width: '12rem',
+          transition: 'all 0.3s',
+          borderRadius: '9999px',
+        }}
+        className="focus:ring-2 focus:ring-yellow-400"
       />
       <button
         type="submit"
-        className="ml-2 bg-yellow-800 text-gray-700 px-6 py-3 rounded-full hover:bg-yellow-900 transition-all duration-300 transform hover:scale-105"
+        style={{
+          marginLeft: '0.5rem',
+          backgroundColor: '#b7791f',
+          color: '#4a4a48',
+          padding: '0.75rem 1.5rem',
+          borderRadius: '9999px',
+          transition: 'all 0.3s',
+          transform: 'scale(1)',
+        }}
+        className="hover:bg-yellow-900 hover:scale-105"
       >
         Buscar
       </button>

@@ -2,7 +2,13 @@ import PopularGamesSlider from "../Slider";
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div
+      style={{
+        minHeight: '100vh',
+        backgroundColor: '#1a202c',
+        color: 'white',
+      }}
+    >
       <PopularGamesSlider />
     </div>
   );

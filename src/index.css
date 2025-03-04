@@ -1,5 +1,6 @@
 
-@import "tailwindcss";
+
+@tailwind utilities;
 
 *{
   color: rgb(202, 200, 200);
