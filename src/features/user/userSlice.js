@@ -4,8 +4,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   user: {
     id: 1,
-    name: 'Usuario Demo',
-    avatar: '/avatar.jpg',
+    name: 'Usuario',
+    avatar: '/user.png',
   },
   favorites: JSON.parse(localStorage.getItem('favorites')) || [],
   events: JSON.parse(localStorage.getItem('userEvents')) || [],
